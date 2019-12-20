@@ -15,46 +15,72 @@ const config = convict({
     env: "PORT"
   },
   jwtSecret: {
+    doc: 'JWT Token secret',
+    format: String,
     default: 'this-is-my-jwt-secret',
+    env: 'JWT_SECRET',
   },
   debug: {
-    default: true
-
+    format: Boolean,
+    default: true,
+    env: 'DEBUG',
   },
   db: {
     username: {
       format: String,
-      default: "postgres"
+      default: "postgres",
+      env: 'DB_USERNAME',
     },
     password: {
       format: String,
-      default: ""
+      default: "",
+      env: 'DB_PASSWORD',
     },
     database: {
       format: String,
-      default: "postgres"
+      default: "postgres",
+      env: 'DB_DATABASE',
     },
     postgresConf: {
       host: {
         doc: "Database host name/IP",
         format: String,
-        default: "localhost"
+        default: "localhost",
+        env: 'DB_HOST',
       },
       dialect: {
         doc: "Dialect of database",
         format: String,
-        default: "postgres"
+        default: "postgres",
+        env: 'DB_DIALECT',
       },
       port: {
         doc: "port for connection",
         format: "port",
-        default: 5432
+        default: 5432,
+        env: 'DB_PORT',
       },
       logging: {
-        default: false
+        format: Boolean,
+        default: false,
+        env: 'DB_LOGGING',
       }
     }
-  }
+  },
+  redis: {
+    host: {
+      doc: "Redis host name/IP",
+      format: String,
+      default: "localhost",
+      env: 'REDIS_HOST',
+    },
+    port: {
+      doc: "port for connection",
+      format: "port",
+      default: 6379,
+      env: 'REDIS_PORT',
+    }
+  },
 });
 
 const env = config.get("env");
@@ -64,7 +90,6 @@ try {
 
   config.loadFile(path);
 } catch (error) {
-  console.error(error);
   console.error("file doesn't exist, loading defaults");
 }
 

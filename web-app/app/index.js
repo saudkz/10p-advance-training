@@ -15,7 +15,7 @@ class App {
     this.dependencies = {};
     this.router = express.Router();
     this.conf = configuration;
-    this.dependencies.redis = new Redis();
+    this.dependencies.redis = new Redis(this.conf.get('redis'));
     this.authMiddleware = new Auth(this.dependencies.redis);
   }
 

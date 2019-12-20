@@ -1,9 +1,9 @@
 const redis = require("redis");
 
 class Redis {
-  constructor() {
+  constructor(config) {
     this.isConnected = false;
-    this.redisClient = new redis.createClient();
+    this.redisClient = new redis.createClient(config);
     this.redisClient.on("error", console.log);
   }
 
